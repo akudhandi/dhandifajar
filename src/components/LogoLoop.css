@@ -1,0 +1,126 @@
+/* LogoLoop.css */
+
+.logoloop {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  --logoloop-gap: 56px;
+  --logoloop-logoHeight: 56px;
+  /* KUNCI: Ubah warna fade agar sama dengan background website Anda */
+  --logoloop-fadeColorAuto: #141516; 
+  color: white;
+}
+
+.logoloop__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+}
+
+.logoloop__list {
+  display: flex;
+  align-items: center;
+  list-style: none; /* Menghilangkan dot list jika ada */
+  margin: 0;
+  padding: 0;
+  padding-right: var(--logoloop-gap);
+}
+
+.logoloop__item {
+  flex: 0 0 auto;
+  margin-right: var(--logoloop-gap);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.logoloop__item:hover {
+  filter: saturate(1.2);
+}
+
+.logoloop__node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mengatur ukuran logo SVG */
+.logoloop__node svg {
+  width: auto;
+  height: var(--logoloop-logoHeight);
+  color: currentColor;
+  display: block;
+}
+
+/* Mengatur ukuran logo Image */
+.logoloop__item img {
+  height: var(--logoloop-logoHeight);
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Efek Scale saat Hover */
+.logoloop--scale-hover .logoloop__node,
+.logoloop--scale-hover img {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logoloop--scale-hover .logoloop__item:hover .logoloop__node,
+.logoloop--scale-hover .logoloop__item:hover img {
+  transform: scale(1.15);
+}
+
+.logoloop__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* EFEK FADE GRADIENT */
+.logoloop--fade::before,
+.logoloop--fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 150px; /* Lebar area fade ditingkatkan agar transisi lebih halus */
+  pointer-events: none;
+  z-index: 10;
+}
+
+.logoloop--fade::before {
+  left: 0;
+  background: linear-gradient(
+    to right, 
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)), 
+    transparent
+  );
+}
+
+.logoloop--fade::after {
+  right: 0;
+  background: linear-gradient(
+    to left, 
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)), 
+    transparent
+  );
+}
+
+/* Responsif untuk Mobile */
+@media (max-width: 768px) {
+  .logoloop {
+    --logoloop-gap: 32px;
+    --logoloop-logoHeight: 40px;
+  }
+  
+  .logoloop--fade::before,
+  .logoloop--fade::after {
+    width: 60px; /* Area fade lebih kecil di mobile */
+  }
+}

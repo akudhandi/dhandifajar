@@ -1,0 +1,38 @@
+.card {
+  position: absolute;
+  border-radius: 20px;
+  overflow: hidden; /* Penting agar gambar tidak keluar dari border radius */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #1a1a1a;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0; /* Mengunci caption di bagian bawah */
+  left: 0;
+  right: 0;
+  padding: 24px;
+  /* Gradient hitam transparan agar teks terbaca jelas di atas gambar */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none; /* Agar klik tetap tembus ke kartu */
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.card-content p {
+  margin: 4px 0 0 0;
+  opacity: 0.8;
+}

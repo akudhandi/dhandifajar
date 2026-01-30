@@ -1,26 +1,103 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ===============================
+   THEME CONFIG (TAILWIND v4)
+================================ */
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===============================
+   ROOT VARIABLES (DEFAULT DARK)
+================================ */
+:root {
+  --radius: 0.625rem;
+
+  /* DEFAULT DARK MODE */
+  --background: #000000;
+  --foreground: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.1);
+  --ring: rgba(255, 255, 255, 0.3);
+}
+
+/* ===============================
+   GLOBAL RESET (WAJIB)
+================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ===============================
+   BASE LAYER
+================================ */
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ===============================
+   NAVBAR SAFETY
+================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+/* ===============================
+   NAV BUTTON
+================================ */
+.nav-btn {
+  @apply flex items-center gap-2
+         px-4 py-2 rounded-full
+         text-sm font-medium
+         text-neutral-400
+         hover:text-white hover:bg-white/10
+         transition;
+}
+
+/* ===============================
+   SCROLLBAR (OPTIONAL)
+================================ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Agar saat scroll tidak tertutup navbar */
 }

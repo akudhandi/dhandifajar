@@ -1,0 +1,33 @@
+import {
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiNodedotjs,
+  SiPhp,
+  SiLaravel,
+  SiNextdotjs,
+  SiMysql,
+  SiGit,
+  SiFlutter,
+  SiDart,
+  SiTailwindcss,
+  SiPostman,
+  SiGradle,
+} from 'react-icons/si';
+
+export const techLogos = [
+  { node: <SiHtml5 />, title: 'HTML5', href: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
+  { node: <SiCss3 />, title: 'CSS3', href: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
+  { node: <SiJavascript />, title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { node: <SiNodedotjs />, title: 'Node.js', href: 'https://nodejs.org' },
+  { node: <SiPhp />, title: 'PHP', href: 'https://www.php.net' },
+  { node: <SiLaravel />, title: 'Laravel', href: 'https://laravel.com' },
+  { node: <SiNextdotjs />, title: 'Next.js', href: 'https://nextjs.org' },
+  { node: <SiMysql />, title: 'SQL / MySQL', href: 'https://www.mysql.com' },
+  { node: <SiGit />, title: 'Git', href: 'https://git-scm.com' },
+  { node: <SiGradle />, title: 'Java', href: 'https://www.gradle.org' },
+  { node: <SiFlutter />, title: 'Flutter', href: 'https://flutter.dev' },
+  { node: <SiDart />, title: 'Dart', href: 'https://dart.dev' },
+  { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+  { node: <SiPostman />, title: 'RESTful API', href: 'https://restfulapi.net' },
+];
