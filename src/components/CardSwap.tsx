@@ -31,7 +31,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   customClass?: string;
 }
 
-// Gunakan React.HTMLAttributes untuk menghindari konflik ref di cloneElement
+// Komponen Card dengan forwardRef yang benar
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ customClass, ...rest }, ref) => (
     <div
@@ -113,10 +113,10 @@ const CardSwap: React.FC<CardSwapProps> = ({
   const container = useRef<HTMLDivElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const startedRef = useRef(false);
 
   useEffect(() => {
     const total = childArr.length;
+    if (total === 0) return;
 
     const swap = () => {
       if (order.current.length < 2) return;
@@ -158,8 +158,9 @@ const CardSwap: React.FC<CardSwapProps> = ({
       const backSlot = makeSlot(total - 1, cardDistance, verticalDistance, total);
 
       tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
-      // Perbaikan error "Type Tween is not assignable to void"
-      tl.call(() => { gsap.set(elFront, { zIndex: backSlot.zIndex }); }, undefined, 'return');
+      tl.call(() => { 
+        if (elFront) gsap.set(elFront, { zIndex: backSlot.zIndex }); 
+      }, undefined, 'return');
 
       tl.to(
         elFront,
@@ -178,16 +179,15 @@ const CardSwap: React.FC<CardSwapProps> = ({
       });
     };
 
-    // Initial placement
+    // Penempatan awal
     refs.current.forEach((el, i) => {
       if (el) placeNow(el, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
     });
 
     intervalRef.current = setInterval(swap, delay);
-    startedRef.current = true;
 
-    if (pauseOnHover && container.current) {
-      const node = container.current;
+    const node = container.current;
+    if (pauseOnHover && node) {
       const pause = () => {
         tlRef.current?.pause();
         if (intervalRef.current) clearInterval(intervalRef.current);
@@ -219,31 +219,31 @@ const CardSwap: React.FC<CardSwapProps> = ({
         width, 
         height, 
         position: 'relative', 
-        overflow: 'visible' // KUNCI AGAR TIDAK TERPOTONG
+        overflow: 'visible' 
       }}
     >
-      {childArr.map((child, i) => (
-        isValidElement<CardProps>(child) ? (
-          cloneElement(child, {
-            ...child.props,
-            key: i,
-            // Perbaikan error Ref
-            ref: (el: HTMLDivElement) => { refs.current[i] = el; },
-            style: { 
-              width, 
-              height, 
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              ...child.props.style 
-            },
-            onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-              child.props.onClick?.(e);
-              onCardClick?.(i);
-            }
-          })
-        ) : child
-      ))}
+      {childArr.map((child, i) => {
+        if (!isValidElement(child)) return child;
+
+        // Casting ke any di cloneElement adalah solusi paling aman untuk menghindari 
+        // error TypeScript 'ref' does not exist pada library eksternal/custom
+        return cloneElement(child as any, {
+          key: i,
+          ref: (el: HTMLDivElement | null) => { refs.current[i] = el; },
+          style: { 
+            width, 
+            height, 
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            ...child.props.style 
+          },
+          onClick: (e: React.MouseEvent<HTMLDivElement>) => {
+            child.props.onClick?.(e);
+            onCardClick?.(i);
+          }
+        });
+      })}
     </div>
   );
 };
