@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import StarBorder from "@/components/StarBorder";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -183,19 +184,9 @@ export default function ContactForm() {
 
       {/* SUBMIT */}
       <div className="pt-10 flex justify-end">
-        <button
-          type="submit"
-          disabled={sending}
-          className="
-            px-10 py-3 rounded-full text-sm font-medium
-            bg-sky-500 text-black
-            transition-all duration-300
-            hover:scale-105 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)]
-            active:scale-95 disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-wait
-          "
-        >
+        <StarBorder type="submit" disabled={sending} color="#38bdf8" speed="7s" className="disabled:opacity-60">
           {sending ? "Sending..." : "Send It"}
-        </button>
+        </StarBorder>
       </div>
     </form>
   );

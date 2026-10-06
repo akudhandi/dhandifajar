@@ -8,10 +8,19 @@ import {
   FaInstagram
 } from 'react-icons/fa6';
 import Dock from '@/components/Dock/Dock';
+import SplitText from '@/components/SplitText';
+import TextType from '@/components/TextType';
 import { useSiteContent } from '@/lib/use-content';
+import { usePrefersReducedMotion } from '@/lib/use-reduced-motion';
 
-export default function Hero() {
+const ROLES = ['Fullstack Developer', 'UI/UX Designer', 'Data Analyst'];
+
+export default function Hero({ ready = true }: { ready?: boolean }) {
   const content = useSiteContent();
+  // Animasi teks hanya jalan setelah preloader selesai & bila user tidak
+  // meminta reduced motion. Sebelum itu tampil teks statis (baik untuk SEO).
+  const reduced = usePrefersReducedMotion();
+  const animate = ready && !reduced;
   const dockItems = [
     {
       id: 'discord',
@@ -60,12 +69,43 @@ export default function Hero() {
             </div>
         </motion.div>
 
+        {/* Role rotator */}
+        <div className="mb-5 flex h-7 items-center justify-center">
+          {animate ? (
+            <TextType
+              as="p"
+              text={ROLES}
+              typingSpeed={55}
+              deletingSpeed={28}
+              pauseDuration={1800}
+              initialDelay={400}
+              loop
+              className="text-sm md:text-base text-cyan-300 font-medium tracking-wide"
+            />
+          ) : (
+            <p className="text-sm md:text-base text-cyan-300 font-medium tracking-wide">{ROLES[0]}</p>
+          )}
+        </div>
+
         {/* --- MAIN TYPOGRAPHY --- */}
         <div className="flex flex-col items-center leading-none tracking-tighter font-bold uppercase">
             
-            {/* Baris 1: DIGITAL */}
-            <h1 className="text-[12vw] md:text-[clamp(2.75rem,7vw,4.5rem)] text-purple-400 relative">
-                DIGITAL
+            {/* Baris 1: DIGITAL (satu-satunya h1 untuk SEO) */}
+            <div className="relative">
+              {animate ? (
+                <SplitText
+                  tag="h1"
+                  text="DIGITAL"
+                  className="text-[12vw] md:text-[clamp(2.75rem,7vw,4.5rem)] text-purple-400"
+                  splitType="chars"
+                  delay={30}
+                  duration={0.9}
+                />
+              ) : (
+                <h1 className="text-[12vw] md:text-[clamp(2.75rem,7vw,4.5rem)] text-purple-400">
+                    DIGITAL
+                </h1>
+              )}
                 {/* Badge Pink Kecil */}
                 <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-12 bg-pink-500 text-white text-xs md:text-sm px-2 py-1 rounded-md tracking-normal normal-case hidden md:block">
                     Product
@@ -73,18 +113,40 @@ export default function Hero() {
                  <p className="absolute right-[-150px] top-10 text-xs text-gray-400 tracking-normal normal-case w-32 text-left hidden lg:block">
                     // Based in <br/> Indonesia
                 </p>
-            </h1>
+            </div>
 
             {/* Baris 2: EXPERIENCE */}
-            <h1 className="text-[10vw] md:text-[clamp(2.5rem,6.5vw,4rem)] text-[#fcd34d]">
-                EXPERIENCE
-            </h1>
+            {animate ? (
+              <SplitText
+                tag="span"
+                text="EXPERIENCE"
+                className="text-[10vw] md:text-[clamp(2.5rem,6.5vw,4rem)] text-[#fcd34d]"
+                splitType="chars"
+                delay={30}
+                duration={0.9}
+              />
+            ) : (
+              <span className="text-[10vw] md:text-[clamp(2.5rem,6.5vw,4rem)] text-[#fcd34d]">
+                  EXPERIENCE
+              </span>
+            )}
 
             {/* Baris 3: DESIGNER */}
             <div className="relative flex items-center gap-4">
-                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-white">
-                    DESIGNER
-                </h1>
+                {animate ? (
+                  <SplitText
+                    tag="span"
+                    text="DESIGNER"
+                    className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-white"
+                    splitType="chars"
+                    delay={30}
+                    duration={0.9}
+                  />
+                ) : (
+                  <span className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-white">
+                      DESIGNER
+                  </span>
+                )}
                 {/* Tombol/Badge "Let's Connect" */}
                 <div className="hidden md:flex absolute -right-40 top-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-white/20 bg-neutral-900 px-4 py-2 text-sm font-normal tracking-normal normal-case">
                     <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
@@ -94,9 +156,20 @@ export default function Hero() {
 
             {/* Baris 4: & DEVELOPER */}
             <div className="relative">
-                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-cyan-400">
-                    & DEVELOPER.
-                </h1>
+                {animate ? (
+                  <SplitText
+                    tag="span"
+                    text="& DEVELOPER."
+                    className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-cyan-400"
+                    splitType="chars"
+                    delay={30}
+                    duration={0.9}
+                  />
+                ) : (
+                  <span className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-cyan-400">
+                      & DEVELOPER.
+                  </span>
+                )}
                 {/* Cursor Floating */}
                  <motion.div 
                     animate={{ y: [0, -10, 0] }}

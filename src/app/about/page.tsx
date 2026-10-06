@@ -6,6 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Download } from "lucide-react";
 import Link from "next/link";
 import ProfileCard from "@/components/ProfileCard";
+import StarBorder from "@/components/StarBorder";
 import { useSiteContent } from "@/lib/use-content";
 
 export default function AboutPage() {
@@ -45,15 +46,19 @@ export default function AboutPage() {
               </Reveal>
 
               <Reveal delay={0.5}>
-                <a
+                <StarBorder
+                  as="a"
                   href={content.profile.cv_url ?? "https://drive.google.com/file/d/1-AnW68Eg0Mj6vMHZMbFWkodPwojhljiX/view?usp=sharing"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 border border-white/10 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300 group"
+                  color="#22d3ee"
+                  speed="8s"
                 >
-                  <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
-                  Download My CV
-                </a>
+                  <span className="inline-flex items-center gap-3 text-sm font-medium">
+                    <Download size={18} />
+                    Download My CV
+                  </span>
+                </StarBorder>
               </Reveal>
             </div>
 
@@ -130,13 +135,12 @@ export default function AboutPage() {
           {/* CALL TO ACTION */}
           <Reveal delay={0.4}>
             <div className="mt-40 flex justify-center">
-               <Link 
-                  href="/contactme"
-                  className="group flex items-center gap-4 bg-white text-black px-8 py-4 rounded-full font-medium transition-all hover:bg-cyan-400"
-                >
-                  Contact Me
-                  <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-               </Link>
+               <StarBorder as={Link} href="/contactme" color="#22d3ee" speed="8s">
+                 <span className="inline-flex items-center gap-3 text-sm font-medium">
+                   Contact Me
+                   <ArrowRight size={18} />
+                 </span>
+               </StarBorder>
             </div>
           </Reveal>
 

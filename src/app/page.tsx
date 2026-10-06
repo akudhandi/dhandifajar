@@ -28,6 +28,23 @@ import CardSwap, { Card } from '@/components/CardSwap';
 import MyTechStack from '@/components/MyTechStack';
 import { Reveal } from '@/components/Reveal';
 import { useSiteContent } from '@/lib/use-content';
+import CountUp from '@/components/CountUp';
+import SectionMarquee from '@/components/SectionMarquee';
+import { usePrefersReducedMotion } from '@/lib/use-reduced-motion';
+
+// Angka statistik animasi (CountUp) dengan fallback statis.
+// "2+" -> CountUp(2) + "+", mengikuti format dari CMS.
+function StatNumber({ value }: { value: string }) {
+  const reduced = usePrefersReducedMotion();
+  const m = /^(\d+)(.*)$/.exec(value.trim());
+  if (!m) return <>{value}</>;
+  return (
+    <>
+      {reduced ? m[1] : <CountUp to={parseInt(m[1], 10)} duration={1.6} />}
+      {m[2]}
+    </>
+  );
+}
 
 // --- DATA PORTFOLIO ---
 const portfolioData = {
@@ -122,7 +139,7 @@ export default function Home() {
       <div className="flex flex-col">
         
         {/* HERO SECTION */}
-        <Hero />
+        <Hero ready={!isLoading} />
 
         {/* 2. ABOUT ME SECTION */}
         <section id="about" className="py-24 px-4 md:px-10 max-w-7xl mx-auto w-full overflow-hidden">
@@ -148,11 +165,11 @@ export default function Home() {
                       
                       <div className="flex gap-8 mt-8 border-t border-white/10 pt-8">
                           <div>
-                              <h3 className="text-3xl font-bold text-white">{content.profile.years_exp}</h3>
+                              <h3 className="text-3xl font-bold text-white"><StatNumber value={content.profile.years_exp} /></h3>
                               <p className="text-sm text-neutral-500">Years Exp.</p>
                           </div>
                           <div>
-                              <h3 className="text-3xl font-bold text-white">{content.profile.projects_count}</h3>
+                              <h3 className="text-3xl font-bold text-white"><StatNumber value={content.profile.projects_count} /></h3>
                               <p className="text-sm text-neutral-500">Projects Done</p>
                           </div>
                       </div>
@@ -257,6 +274,9 @@ export default function Home() {
             </div>
         </section>
 
+        {/* Divider marquee: stack dari CMS */}
+        <SectionMarquee items={content.techStack.map((t) => t.title)} />
+
         {/* 5. PROJECTS SECTION */}
         <section id="projects" className="py-24 px-4 md:px-10 max-w-7xl mx-auto w-full">
             <Reveal>
@@ -346,6 +366,9 @@ export default function Home() {
                 ))}
             </div>
         </section>
+
+        {/* Divider marquee: layanan */}
+        <SectionMarquee items={['Fullstack Development', 'UI/UX Design', 'Data Analytics', 'Mobile Apps']} />
 
         {/* 6. TECH STACK */}
         <Reveal>

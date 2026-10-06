@@ -101,3 +101,29 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px; /* Agar saat scroll tidak tertutup navbar */
 }
+
+/* ===============================
+   REACT BITS — STAR BORDER
+=============================== */
+@keyframes star-movement-bottom {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(-100%, 0%); opacity: 0; }
+}
+@keyframes star-movement-top {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(100%, 0%); opacity: 0; }
+}
+.animate-star-movement-bottom {
+  animation: star-movement-bottom linear infinite alternate;
+}
+.animate-star-movement-top {
+  animation: star-movement-top linear infinite alternate;
+}
+
+/* Hormati prefers-reduced-motion untuk animasi CSS */
+@media (prefers-reduced-motion: reduce) {
+  .animate-star-movement-bottom,
+  .animate-star-movement-top {
+    animation: none;
+  }
+}
