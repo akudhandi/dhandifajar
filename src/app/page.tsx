@@ -27,6 +27,7 @@ import SpotlightCard from '@/components/SpotlightCard';
 import CardSwap, { Card } from '@/components/CardSwap'; 
 import MyTechStack from '@/components/MyTechStack';
 import { Reveal } from '@/components/Reveal';
+import { useSiteContent } from '@/lib/use-content';
 
 // --- DATA PORTFOLIO ---
 const portfolioData = {
@@ -56,118 +57,44 @@ const portfolioData = {
       color: "text-orange-400"
     }
   ],
-  projects: [
-    {
-      name: "Morations",
-      year: "2025",
-      tools: ["VB.NET", "MySQL", "RDLC Report"],
-      role: "Full-Stack Developer",
-      description: "Desktop-based movie rating and subscription app with data-driven ratings and admin dashboard.",
-      type: "software",
-      github: "https://github.com/akudhandi/morations",
-      document: "https://drive.google.com/file/d/1stkUu3uJV8ug0gX3sN6FJ7xHw9GaAi1j/view?usp=drive_link"
-    },
-    {
-      name: "Lunar Store",
-      year: "2025",
-      tools: ["Laravel Livewire", "Tailwind CSS", "MySQL"],
-      role: "Front-End Developer",
-      description: "Responsive e-commerce platform for selling digital subscriptions with integrated payment gateway.",
-      type: "web",
-      github: "https://github.com/Hafidzrdwn/lunar_store_laravel",
-      document: "https://drive.google.com/file/d/1rlhFBzOvXI0p0H3s4tOw4qHA_f5OxQaX/view?usp=drive_link"
-    },
-    {
-      name: "NextChamp",
-      year: "2025",
-      tools: ["Flutter", "Strapi", "MySQL", "Figma"],
-      role: "Front-End Developer",
-      description: "Cross-platform mobile app for student competition mentorship with AI chatbot and discussion forum.",
-      type: "mobile",
-      github: "https://github.com/akudhandi/nextchamp-strapi",
-    },
-    {
-      name: "Blu by BCA Research",
-      year: "2025",
-      tools: ["Jamovi", "WarpPLS", "Python"],
-      role: "Data Analyst",
-      description: "Research analyzing user acceptance of Blu by BCA Digital app using UTAUT framework.",
-      type: "research",
-      doi: "https://doi.org/10.59934/jaiea.v4i3.1182",
-    },
-    {
-      name: "Desk-Go",
-      year: "2024",
-      tools: ["PHP", "Bootstrap", "MySQL"],
-      role: "Full-Stack Web Developer",
-      description: "Web-based system for monitoring and booking seats in a coworking space.",
-      type: "web",
-      document: "https://drive.google.com/file/d/1rlhFBzOvXI0p0H3s4tOw4qHA_f5OxQaX/view?usp=drive_link"
-    },
-    {
-      name: "Leafly DB Management",
-      year: "2024",
-      tools: ["MariaDB", "MySQL", "SQL"],
-      role: "Database Administrator",
-      description: "Database system implementation for Leafly application focusing on data security and scalability.",
-      type: "database",
-      document: "https://drive.google.com/file/d/16eo5WSRd0vUIcXLkzD7vZzuNjy33Gvhq/view?usp=drive_link"
-    },
-    {
-      name: "Network Design FIK",
-      year: "2024",
-      tools: ["Cisco Packet Tracer"],
-      role: "Network Designer",
-      description: "Network design and configuration for FIK I Building UPN Veteran Jawa Timur.",
-      type: "networking",
-      document: "https://drive.google.com/file/d/1s3dLCpXeAYnwI-pyfpwTRqJv4ZNSVtbh/view?usp=drive_link"
-    }
-  ],
-  experiences: [
-    {
-      title: "Samsung Solve for Tomorrow",
-      role: "Participant",
-      year: "2025",
-      type: "Competition",
-      description: "Developing sustainable technology solutions for environmental challenges."
-    },
-    {
-      title: "Fasilkom Fest 2024",
-      role: "Head of Security & Licensing",
-      year: "2024",
-      type: "Organization",
-      description: "Led 30-member division, oversaw safety, and coordinated licensing for 10+ sub-events."
-    },
-    {
-      title: "Fasilkom Tech 2024",
-      role: "Head of Logistics",
-      year: "2024",
-      type: "Organization",
-      description: "Managed logistics for a 9-session national bootcamp and hybrid sessions."
-    },
-    {
-      title: "BEM Faculty of CS",
-      role: "Student Welfare Advocacy Staff",
-      year: "2024-2025",
-      type: "Organization",
-      description: "Managed advocacy cases and supported students with academic/financial issues."
-    }
-  ],
-  socialLinks: [
-    { icon: <Linkedin size={20}/>, label: "LinkedIn", href: "https://www.linkedin.com/in/fajar-ramadhandi-hidayat" },
-    { icon: <Github size={20}/>, label: "GitHub", href: "https://github.com/akudhandi" },
-    { icon: <Mail size={20}/>, label: "Email", href: "mailto:dhandifajar@gmail.com" },
-    { icon: <MessageCircle size={20}/>, label: "WhatsApp", href: "https://wa.me/6285648058508" },
-  ],
+  filters: ["all", "web", "mobile", "research", "software", "database", "networking"],
 };
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
-  const filteredProjects = filter === "all" 
-    ? portfolioData.projects 
-    : portfolioData.projects.filter(p => p.type === filter);
+  // Konten dinamis dari Supabase (via /api/content), fallback statis bila offline.
+  const content = useSiteContent();
+  const projects = content.projects.map((p) => ({
+    name: p.name,
+    year: p.year,
+    tools: p.tools,
+    role: p.role,
+    description: p.description,
+    type: p.type,
+    slug: p.slug,
+    github: p.github_url,
+    document: p.doc_url,
+    doi: p.doi_url,
+  }));
+  const experiences = content.experiences.map((e) => ({
+    title: e.title,
+    role: e.role,
+    year: e.year_range,
+    type: e.type,
+    description: e.description,
+  }));
+  const socialLinks = [
+    { icon: <Linkedin size={20}/>, label: "LinkedIn", href: content.profile.socials.linkedin },
+    { icon: <Github size={20}/>, label: "GitHub", href: content.profile.socials.github },
+    { icon: <Mail size={20}/>, label: "Email", href: `mailto:${content.profile.email}` },
+    { icon: <MessageCircle size={20}/>, label: "WhatsApp", href: content.profile.whatsapp },
+  ];
+
+  const filteredProjects = filter === "all"
+    ? projects
+    : projects.filter(p => p.type === filter);
 
   useEffect(() => {
     if (isLoading) {
@@ -221,11 +148,11 @@ export default function Home() {
                       
                       <div className="flex gap-8 mt-8 border-t border-white/10 pt-8">
                           <div>
-                              <h3 className="text-3xl font-bold text-white">2+</h3>
+                              <h3 className="text-3xl font-bold text-white">{content.profile.years_exp}</h3>
                               <p className="text-sm text-neutral-500">Years Exp.</p>
                           </div>
                           <div>
-                              <h3 className="text-3xl font-bold text-white">15+</h3>
+                              <h3 className="text-3xl font-bold text-white">{content.profile.projects_count}</h3>
                               <p className="text-sm text-neutral-500">Projects Done</p>
                           </div>
                       </div>
@@ -310,7 +237,7 @@ export default function Home() {
               </h2>
             </Reveal>
             <div className="space-y-6">
-                {portfolioData.experiences.map((exp, index) => (
+                {experiences.map((exp, index) => (
                     <Reveal key={index} delay={0.1}>
                       <div className="group relative pl-8 border-l border-neutral-800 hover:border-purple-500 transition-colors duration-300">
                           <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-800 group-hover:bg-purple-500 transition-colors"></div>
@@ -341,7 +268,7 @@ export default function Home() {
                   
                   {/* Filter Buttons */}
                   <div className="flex gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 w-full md:w-auto">
-                      {["all", "web", "mobile", "research", "software"].map((cat) => (
+                      {portfolioData.filters.map((cat) => (
                           <button 
                               key={cat}
                               onClick={() => setFilter(cat)}
@@ -431,7 +358,7 @@ export default function Home() {
               <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
                   <p className="text-neutral-500 text-sm">© 2025 Fajar Ramadhandi Hidayat.</p>
                   <div className="flex gap-6">
-                      {portfolioData.socialLinks.map((social, i) => (
+                      {socialLinks.map((social, i) => (
                           <a key={i} href={social.href} target="_blank" className="text-neutral-500 hover:text-white transition hover:scale-110">
                               {social.icon}
                           </a>
