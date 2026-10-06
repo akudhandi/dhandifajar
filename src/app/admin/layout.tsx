@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { isServiceConfigured, createServiceClient } from "@/lib/supabase/service";
 import { AdminChrome } from "@/components/admin/admin-chrome";
 import { AdminToaster } from "@/components/admin/toaster";
@@ -20,10 +20,30 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Tanpa env: JANGAN crash — render children apa adanya.
+  // Halaman /admin/login punya panduan setup sendiri.
+  if (!isSupabaseConfigured()) {
+    return (
+      <div className="min-h-screen bg-[#0A0C0F] text-white">
+        <main className="max-w-6xl mx-auto px-4 py-8">{children}</main>
+        <AdminToaster />
+        <Suspense fallback={null}>
+          <FlashToast />
+        </Suspense>
+      </div>
+    );
+  }
+
+  let userEmail = "";
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userEmail = user?.email ?? "";
+  } catch (e) {
+    console.error("[admin-layout] auth unavailable:", e);
+  }
 
   let unread: number | null = null;
   if (isServiceConfigured()) {
@@ -41,7 +61,7 @@ export default async function AdminLayout({
 
   return (
     <>
-      <AdminChrome unread={unread} userEmail={user?.email ?? ""} logoutAction={logout}>
+      <AdminChrome unread={unread} userEmail={userEmail} logoutAction={logout}>
         {children}
       </AdminChrome>
       <AdminToaster />

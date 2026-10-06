@@ -32,6 +32,8 @@ async function login(formData: FormData) {
 const errors: Record<string, string> = {
   invalid: "Email atau password salah.",
   forbidden: "Akun ini bukan admin. Hubungi pemilik situs.",
+  "auth-unavailable":
+    "Layanan auth tidak merespons (Supabase tidak terjangkau / env belum benar). Tunggu sebentar lalu coba lagi.",
   "not-configured":
     "Supabase belum dikonfigurasi. Isi env NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, dan SUPABASE_SERVICE_ROLE_KEY, lalu restart server.",
 };
