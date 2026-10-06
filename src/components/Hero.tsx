@@ -36,13 +36,13 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-[#141516] overflow-hidden text-white px-4">
+    <section className="relative flex min-h-[100svh] w-full flex-col items-center justify-center bg-[#141516] overflow-hidden text-white px-4 pt-28 pb-14">
       
       {/* DULU ADA NAVBAR DI SINI. 
           SUDAH DIHAPUS AGAR TIDAK DOBEL DENGAN NAVBAR BARU DI PAGE.TSX 
       */}
 
-      <div className="relative z-10 flex flex-col items-center text-center mt-10">
+      <div className="relative z-10 flex flex-col items-center text-center">
         
         {/* Avatar Floating (Atas) */}
         <motion.div 
@@ -64,7 +64,7 @@ export default function Hero() {
         <div className="flex flex-col items-center leading-none tracking-tighter font-bold uppercase">
             
             {/* Baris 1: DIGITAL */}
-            <h1 className="text-[12vw] md:text-[8rem] text-purple-400 relative">
+            <h1 className="text-[12vw] md:text-[clamp(3.5rem,9vw,6.5rem)] text-purple-400 relative">
                 DIGITAL
                 {/* Badge Pink Kecil */}
                 <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-12 bg-pink-500 text-white text-xs md:text-sm px-2 py-1 rounded-md tracking-normal normal-case hidden md:block">
@@ -76,13 +76,13 @@ export default function Hero() {
             </h1>
 
             {/* Baris 2: EXPERIENCE */}
-            <h1 className="text-[10vw] md:text-[7rem] text-[#fcd34d]">
+            <h1 className="text-[10vw] md:text-[clamp(3rem,8vw,5.75rem)] text-[#fcd34d]">
                 EXPERIENCE
             </h1>
 
             {/* Baris 3: DESIGNER */}
             <div className="relative flex items-center gap-4">
-                <h1 className="text-[11vw] md:text-[7.5rem] text-white">
+                <h1 className="text-[11vw] md:text-[clamp(3.25rem,8.5vw,6.25rem)] text-white">
                     DESIGNER
                 </h1>
                 {/* Tombol/Badge "Let's Connect" */}
@@ -94,7 +94,7 @@ export default function Hero() {
 
             {/* Baris 4: & DEVELOPER */}
             <div className="relative">
-                <h1 className="text-[11vw] md:text-[7.5rem] text-cyan-400">
+                <h1 className="text-[11vw] md:text-[clamp(3.25rem,8.5vw,6.25rem)] text-cyan-400">
                     & DEVELOPER.
                 </h1>
                 {/* Cursor Floating */}
@@ -115,15 +115,15 @@ export default function Hero() {
         </div>
 
         {/* Subtitle */}
-        <p className="mt-8 max-w-lg text-center text-neutral-400 md:text-lg">
+        <p className="mt-6 max-w-lg text-center text-neutral-400 text-sm md:text-lg text-balance px-2">
             I create a digital experience that borders on <br className="hidden md:block"/>
             <span className="text-purple-400">efficiency</span>, <span className="text-yellow-400">aesthetics</span> and <span className="text-cyan-400">functionality</span>.
         </p>
 
       </div>
 
-      {/* --- SOCIAL MEDIA DOCK (Tetap Ada) --- */}
-      <div className="absolute bottom-8 z-20">
+      {/* --- SOCIAL MEDIA DOCK (in-flow agar tidak menutupi subtitle) --- */}
+      <div className="mt-8 z-20">
         <Dock items={dockItems} />
       </div>
 
