@@ -19,56 +19,7 @@ import {
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal"; // Pastikan path import benar
-
-const projects = [
-  {
-    name: "Morations",
-    year: "2025",
-    tools: "VB.NET, MySQL, RDLC Report",
-    type: "software",
-    description: "Desktop-based movie rating and subscription app with data-driven ratings and admin dashboard.",
-    github: "https://github.com/akudhandi/morations",
-    document: "https://drive.google.com/file/d/1stkUu3uJV8ug0gX3sN6FJ7xHw9GaAi1j/view?usp=drive_link",
-    image: "bg-gradient-to-br from-blue-900/40 to-black"
-  },
-  {
-    name: "Lunar Store",
-    year: "2025",
-    tools: "Laravel Livewire, Tailwind CSS, MySQL",
-    type: "web",
-    description: "Responsive e-commerce platform for selling digital subscriptions with integrated payment gateway.",
-    github: "https://github.com/Hafidzrdwn/lunar_store_laravel",
-    document: "https://drive.google.com/file/d/1rlhFBzOvXI0p0H3s4tOw4qHA_f5OxQaX/view?usp=drive_link",
-    image: "bg-gradient-to-br from-emerald-900/40 to-black"
-  },
-  {
-    name: "NextChamp",
-    year: "2025",
-    tools: "Flutter, Strapi, MySQL, Figma",
-    type: "mobile",
-    description: "Cross-platform mobile app for student competition mentorship with AI chatbot and discussion forum.",
-    github: "https://github.com/akudhandi/nextchamp-strapi",
-    image: "bg-gradient-to-br from-purple-900/40 to-black"
-  },
-  {
-    name: "Blu by BCA Research",
-    year: "2025",
-    tools: "Jamovi, WarpPLS, Python",
-    type: "research",
-    description: "Research analyzing user acceptance of Blu by BCA Digital app using UTAUT framework.",
-    doi: "https://doi.org/10.59934/jaiea.v4i3.1182",
-    image: "bg-gradient-to-br from-pink-900/40 to-black"
-  },
-  {
-    name: "Desk-Go",
-    year: "2024",
-    tools: "PHP, Bootstrap, MySQL",
-    type: "web",
-    description: "Web-based system for monitoring and booking seats in a coworking space.",
-    document: "https://drive.google.com/file/d/1rlhFBzOvXI0p0H3s4tOw4qHA_f5OxQaX/view?usp=drive_link",
-    image: "bg-gradient-to-br from-orange-900/40 to-black"
-  }
-];
+import { useSiteContent } from "@/lib/use-content";
 
 const TypeIcon = ({ type }: { type: string }) => {
   switch (type) {
@@ -83,6 +34,8 @@ const TypeIcon = ({ type }: { type: string }) => {
 };
 
 export default function ProjectsPage() {
+  const content = useSiteContent();
+  const projects = content.projects;
   return (
     <main className="min-h-screen w-full bg-[#141516] text-white selection:bg-cyan-500">
       <Navbar />
@@ -121,17 +74,21 @@ export default function ProjectsPage() {
                       <h3 className="text-3xl font-medium mb-4">{project.name}</h3>
                       <p className="text-neutral-400 leading-relaxed text-lg mb-6">{project.description}</p>
                       <div className="flex gap-3">
-                        {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><Github size={20}/></a>}
-                        {project.document && <a href={project.document} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><HardDrive size={20}/></a>}
-                        {project.doi && <a href={project.doi} target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><ExternalLink size={20}/></a>}
+                        {project.github_url && <a href={project.github_url} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} GitHub`} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><Github size={20}/></a>}
+                        {project.doc_url && <a href={project.doc_url} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} documentation`} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><HardDrive size={20}/></a>}
+                        {project.doi_url && <a href={project.doi_url} target="_blank" rel="noopener noreferrer" aria-label={`${project.name} publication`} className="p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-neutral-400 hover:text-white"><ExternalLink size={20}/></a>}
                       </div>
                     </div>
-                    <Link href={project.github || project.document || "#"} target="_blank" className="mt-10 inline-flex items-center gap-2 w-fit px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-cyan-400 transition-all">
+                    <Link href={`/projects/${project.slug}`} className="mt-10 inline-flex items-center gap-2 w-fit px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-cyan-400 transition-all">
                       View Project <ArrowUpRight size={18} />
                     </Link>
                   </div>
-                  <div className={`h-[300px] lg:h-auto rounded-[2rem] ${project.image} border border-white/5 flex items-center justify-center overflow-hidden`}>
-                     <span className="text-white/5 font-black text-9xl group-hover:scale-110 transition-transform duration-700">{project.name.charAt(0)}</span>
+                  <div className={`h-[300px] lg:h-auto rounded-[2rem] ${project.cover_url ? "" : project.gradient} border border-white/5 flex items-center justify-center overflow-hidden`}>
+                    {project.cover_url ? (
+                      <img src={project.cover_url} alt={project.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                    ) : (
+                      <span className="text-white/5 font-black text-9xl group-hover:scale-110 transition-transform duration-700">{project.name.charAt(0)}</span>
+                    )}
                   </div>
                 </div>
               </Reveal>
@@ -158,6 +115,30 @@ export default function ProjectsPage() {
             </div>
           </Reveal>
 
+          {/* CERTIFICATES GRID (dari admin, bila ada) */}
+          {content.certificates.length > 0 && (
+            <div className="mb-16">
+              <Reveal>
+                <h2 className="text-3xl font-semibold mb-8">Certificates</h2>
+              </Reveal>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {content.certificates.map((c, i) => (
+                  <Reveal key={c.id} delay={i * 0.1}>
+                    <div className="p-8 border border-white/5 rounded-[2rem] bg-white/[0.01] hover:bg-white/[0.03] hover:border-purple-500/30 transition-all h-full">
+                      <Award className="text-purple-400 mb-4" size={32} />
+                      <h3 className="text-xl font-semibold mb-1">{c.title}</h3>
+                      <p className="text-neutral-500 text-sm mb-4">{c.issuer} • {c.year}</p>
+                      <div className="flex gap-3">
+                        {c.credential_url && <a href={c.credential_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white font-medium hover:text-purple-400 transition-colors">Credential <ExternalLink size={16} /></a>}
+                        {c.file_url && <a href={c.file_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white font-medium hover:text-purple-400 transition-colors">File <FileText size={16} /></a>}
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* ARCHIVE SECTION */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Reveal delay={0.2}>
@@ -165,7 +146,7 @@ export default function ProjectsPage() {
                 <Award className="text-purple-400 mb-6" size={40} />
                 <h2 className="text-3xl font-semibold mb-3">Certificates</h2>
                 <p className="text-neutral-500 mb-8">Kumpulan sertifikasi profesional dan pencapaian akademik selama masa studi.</p>
-                <a href="https://drive.google.com/drive/folders/1BjCH56LyAxKphfNeAYp5XzsoRxEaMv36?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white font-medium hover:text-purple-400 transition-colors">
+                <a href={content.profile.certificates_url ?? "https://drive.google.com/drive/folders/1BjCH56LyAxKphfNeAYp5XzsoRxEaMv36?usp=sharing"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white font-medium hover:text-purple-400 transition-colors">
                   Open Drive Folder <ExternalLink size={18} />
                 </a>
               </div>
@@ -176,7 +157,7 @@ export default function ProjectsPage() {
                 <FileText className="text-cyan-400 mb-6" size={40} />
                 <h2 className="text-3xl font-semibold mb-3">Project Documentation</h2>
                 <p className="text-neutral-500 mb-8">Laporan teknis, analisis sistem, dan dokumentasi detail dari setiap proyek.</p>
-                <a href="https://drive.google.com/drive/folders/1fl5fUtcjoHkte25901eRDgYC8aNFCIah?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white font-medium hover:text-cyan-400 transition-colors">
+                <a href={content.profile.docs_url ?? "https://drive.google.com/drive/folders/1fl5fUtcjoHkte25901eRDgYC8aNFCIah?usp=sharing"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white font-medium hover:text-cyan-400 transition-colors">
                   Open Drive Folder <ExternalLink size={18} />
                 </a>
               </div>

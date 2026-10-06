@@ -8,31 +8,33 @@ import {
   FaInstagram
 } from 'react-icons/fa6';
 import Dock from '@/components/Dock/Dock';
-
-const dockItems = [
-  {
-    id: 'discord',
-    icon: <FaDiscord size={22} />,
-    href: 'https://discord.com/users/706400895608291358',
-  },
-  {
-    id: 'linkedin',
-    icon: <FaLinkedinIn size={22} />,
-    href: 'https://www.linkedin.com/in/fajar-ramadhandi-hidayat',
-  },
-  {
-    id: 'github',
-    icon: <FaGithub size={22} />,
-    href: 'https://github.com/akudhandi',
-  },
-  {
-    id: 'instagram',
-    icon: <FaInstagram size={22} />,
-    href: 'https://www.instagram.com/dhn_di/',
-  },
-];
+import { useSiteContent } from '@/lib/use-content';
 
 export default function Hero() {
+  const content = useSiteContent();
+  const dockItems = [
+    {
+      id: 'discord',
+      icon: <FaDiscord size={22} />,
+      href: content.profile.socials.discord,
+    },
+    {
+      id: 'linkedin',
+      icon: <FaLinkedinIn size={22} />,
+      href: content.profile.socials.linkedin,
+    },
+    {
+      id: 'github',
+      icon: <FaGithub size={22} />,
+      href: content.profile.socials.github,
+    },
+    {
+      id: 'instagram',
+      icon: <FaInstagram size={22} />,
+      href: content.profile.socials.instagram,
+    },
+  ];
+
   return (
     <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-[#141516] overflow-hidden text-white px-4">
       

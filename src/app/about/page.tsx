@@ -6,8 +6,10 @@ import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Download } from "lucide-react";
 import Link from "next/link";
 import ProfileCard from "@/components/ProfileCard";
+import { useSiteContent } from "@/lib/use-content";
 
 export default function AboutPage() {
+  const content = useSiteContent();
   const handleContactClick = () => {
     window.location.href = "/contactme";
   };
@@ -43,8 +45,8 @@ export default function AboutPage() {
               </Reveal>
 
               <Reveal delay={0.5}>
-                <a 
-                  href="https://drive.google.com/file/d/1-AnW68Eg0Mj6vMHZMbFWkodPwojhljiX/view?usp=sharing"
+                <a
+                  href={content.profile.cv_url ?? "https://drive.google.com/file/d/1-AnW68Eg0Mj6vMHZMbFWkodPwojhljiX/view?usp=sharing"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-8 py-4 border border-white/10 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300 group"
@@ -58,13 +60,13 @@ export default function AboutPage() {
             {/* SISI KANAN: PROFILE CARD SEJAJAR HEADLINE */}
             <div className="flex justify-center lg:justify-end lg:pt-2">
               <Reveal delay={0.6}>
-                <ProfileCard 
-                  avatarUrl="/assets/foto dhandi.jpg" 
-                  miniAvatarUrl="/assets/foto dhandi.jpg"
-                  name="Fajar Ramadhandi H."
+                <ProfileCard
+                  avatarUrl={content.profile.avatar_url ?? "/assets/foto dhandi.jpg"}
+                  miniAvatarUrl={content.profile.avatar_url ?? "/assets/foto dhandi.jpg"}
+                  name={content.profile.full_name}
                   title="Software Engineer"
                   handle="akudhandi"
-                  status="Available for Work"
+                  status={content.profile.open_to_work ? "Available for Work" : "Currently Busy"}
                   contactText="Contact Me"
                   behindGlowColor="rgba(34, 211, 238, 0.4)" 
                   innerGradient="linear-gradient(145deg, rgba(15, 16, 17, 0.9) 0%, rgba(0, 0, 0, 1) 100%)"

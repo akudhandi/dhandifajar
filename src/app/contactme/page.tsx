@@ -4,8 +4,16 @@ import Navbar from "@/components/Navbar";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { useSiteContent } from "@/lib/use-content";
 
 export default function ContactMePage() {
+  const content = useSiteContent();
+  const socials = [
+    { name: "LinkedIn", link: content.profile.socials.linkedin },
+    { name: "Discord", link: content.profile.socials.discord },
+    { name: "Instagram", link: content.profile.socials.instagram },
+    { name: "GitHub", link: content.profile.socials.github },
+  ];
   return (
     <main className="min-h-screen w-full bg-[#141516] text-white selection:bg-cyan-500">
       
@@ -38,8 +46,8 @@ export default function ContactMePage() {
             </Reveal>
           </div>
 
-          {/* RIGHT SIDEBAR */}
-          <aside className="hidden lg:block">
+          {/* RIGHT SIDEBAR — sticky di desktop, kartu ringkas di mobile */}
+          <aside className="block">
             <div className="sticky top-40 space-y-10">
 
               {/* LOGO */}
@@ -54,10 +62,10 @@ export default function ContactMePage() {
                 <div>
                   <p className="text-xs text-neutral-500 mb-2 uppercase tracking-widest">Contact Details</p>
                   <a
-                    href="mailto:dhandifajar@gmail.com"
+                    href={`mailto:${content.profile.email}`}
                     className="text-sm hover:text-cyan-400 transition-colors"
                   >
-                    dhandifajar@gmail.com
+                    {content.profile.email}
                   </a>
                 </div>
               </Reveal>
@@ -67,24 +75,7 @@ export default function ContactMePage() {
                 <div>
                   <p className="text-xs text-neutral-500 mb-4 uppercase tracking-widest">Socials</p>
                   <ul className="space-y-4">
-                    {[
-                      {
-                        name: "LinkedIn",
-                        link: "https://www.linkedin.com/in/fajar-ramadhandi-hidayat",
-                      },
-                      {
-                        name: "Discord",
-                        link: "https://discord.com/users/",
-                      },
-                      {
-                        name: "Instagram",
-                        link: "https://instagram.com/",
-                      },
-                      {
-                        name: "GitHub",
-                        link: "https://github.com/akudhandi",
-                      },
-                    ].map((item) => (
+                    {socials.map((item) => (
                       <li key={item.name}>
                         <a
                           href={item.link}
