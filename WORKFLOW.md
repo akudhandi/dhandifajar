@@ -1,5 +1,8 @@
 # Alur Kerja Project Ini (Wajib Baca)
 
+> Status migrasi: SELESAI — clone Linux `~/work/portofolio-website-new` aktif,
+> branch `feature/admin-cms` ter-push dari clone pada 2026-10-06, build hijau.
+
 Repo: `akudhandi/dhandifajar` — portfolio + webadmin Supabase. Deploy: Vercel (auto dari GitHub).
 
 ## 1. Arsitektur folder: DUA copy, SATU git
