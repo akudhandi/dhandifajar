@@ -44,12 +44,12 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center text-center">
         
-        {/* Avatar Floating (Atas) */}
-        <motion.div 
+        {/* Avatar (in-flow, tidak lagi menabrak navbar) */}
+        <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
-            className="absolute -top-24 left-1/2 -translate-x-1/2 md:-left-10 md:translate-x-0"
+            className="mb-7 flex justify-center"
         >
             <div className="flex items-center gap-2">
                 <div className="h-12 w-12 rounded-full bg-gray-600 border-2 border-white overflow-hidden">
@@ -64,7 +64,7 @@ export default function Hero() {
         <div className="flex flex-col items-center leading-none tracking-tighter font-bold uppercase">
             
             {/* Baris 1: DIGITAL */}
-            <h1 className="text-[12vw] md:text-[clamp(3.5rem,9vw,6.5rem)] text-purple-400 relative">
+            <h1 className="text-[12vw] md:text-[clamp(2.75rem,7vw,4.5rem)] text-purple-400 relative">
                 DIGITAL
                 {/* Badge Pink Kecil */}
                 <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-12 bg-pink-500 text-white text-xs md:text-sm px-2 py-1 rounded-md tracking-normal normal-case hidden md:block">
@@ -76,13 +76,13 @@ export default function Hero() {
             </h1>
 
             {/* Baris 2: EXPERIENCE */}
-            <h1 className="text-[10vw] md:text-[clamp(3rem,8vw,5.75rem)] text-[#fcd34d]">
+            <h1 className="text-[10vw] md:text-[clamp(2.5rem,6.5vw,4rem)] text-[#fcd34d]">
                 EXPERIENCE
             </h1>
 
             {/* Baris 3: DESIGNER */}
             <div className="relative flex items-center gap-4">
-                <h1 className="text-[11vw] md:text-[clamp(3.25rem,8.5vw,6.25rem)] text-white">
+                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-white">
                     DESIGNER
                 </h1>
                 {/* Tombol/Badge "Let's Connect" */}
@@ -94,7 +94,7 @@ export default function Hero() {
 
             {/* Baris 4: & DEVELOPER */}
             <div className="relative">
-                <h1 className="text-[11vw] md:text-[clamp(3.25rem,8.5vw,6.25rem)] text-cyan-400">
+                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-cyan-400">
                     & DEVELOPER.
                 </h1>
                 {/* Cursor Floating */}
