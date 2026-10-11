@@ -72,7 +72,7 @@ export default function ContactForm() {
         className="py-10 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-8 text-center"
       >
         <p className="text-emerald-300 font-semibold text-lg">Pesan terkirim. Terima kasih!</p>
-        <p className="text-neutral-400 text-sm mt-2">
+        <p className="text-[#E9BCB9]/60 text-sm mt-2">
           Saya akan membalas via email secepatnya. Butuh cepat? Hubungi via WhatsApp.
         </p>
         <div className="mt-6 flex justify-center gap-3">
@@ -80,14 +80,14 @@ export default function ContactForm() {
             href="https://wa.me/6285648058508"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-full text-sm font-medium bg-white text-black hover:bg-cyan-300 transition"
+            className="px-6 py-2.5 rounded-full text-sm font-medium bg-[#ED9E59] text-[#1B1931] hover:bg-[#E9BCB9] transition"
           >
             Chat WhatsApp
           </a>
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="px-6 py-2.5 rounded-full text-sm border border-white/20 text-neutral-300 hover:bg-white/10 transition"
+            className="px-6 py-2.5 rounded-full text-sm border border-[#662249] text-[#E9BCB9]/70 hover:bg-[#44174E] transition"
           >
             Kirim lagi
           </button>
@@ -99,7 +99,7 @@ export default function ContactForm() {
   const sending = status === "sending";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="divide-y divide-white/10" aria-describedby={formError ? "contact-error" : undefined}>
+    <form onSubmit={onSubmit} noValidate className="divide-y divide-[#662249]/60" aria-describedby={formError ? "contact-error" : undefined}>
       <Field
         index="01"
         id="contact-name"
@@ -143,7 +143,7 @@ export default function ContactForm() {
 
       {/* MESSAGE */}
       <div className="py-10">
-        <label htmlFor="contact-message" className="text-sm text-neutral-300 mb-3 block">
+        <label htmlFor="contact-message" className="text-sm text-[#E9BCB9]/80 mb-3 block">
           05 &nbsp; Your message
         </label>
         <textarea
@@ -155,7 +155,7 @@ export default function ContactForm() {
           placeholder="Write your message here (min. 20 characters)..."
           aria-invalid={!!fieldErrors.message}
           aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
-          className="w-full bg-transparent text-sm outline-none resize-none placeholder:text-neutral-600 focus:placeholder:text-neutral-500 border-b border-transparent focus:border-cyan-500/50 transition pb-2"
+          className="w-full bg-transparent text-sm text-[#E9BCB9] outline-none resize-none placeholder:text-[#E9BCB9]/30 focus:placeholder:text-[#E9BCB9]/50 border-b border-transparent focus:border-[#ED9E59]/50 transition pb-2"
         />
         {fieldErrors.message && (
           <p id="contact-message-error" role="alert" className="text-red-400 text-xs mt-2">
@@ -188,9 +188,9 @@ export default function ContactForm() {
           disabled={sending}
           className="
             px-10 py-3 rounded-full text-sm font-medium
-            bg-sky-500 text-black
+            bg-[#ED9E59] text-[#1B1931]
             transition-all duration-300
-            hover:scale-105 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)]
+            hover:scale-105 hover:shadow-[0_0_25px_rgba(237,158,89,0.6)]
             active:scale-95 disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-wait
           "
         >
@@ -224,7 +224,7 @@ function Field({
 }) {
   return (
     <div className="py-10">
-      <label htmlFor={id} className="text-sm text-neutral-300 mb-3 block">
+      <label htmlFor={id} className="text-sm text-[#E9BCB9]/80 mb-3 block">
         {index} &nbsp; {label}
       </label>
       <input
@@ -237,7 +237,7 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className="w-full bg-transparent text-sm outline-none placeholder:text-neutral-600 border-b border-transparent focus:border-cyan-500/50 transition pb-2"
+        className="w-full bg-transparent text-sm text-[#E9BCB9] outline-none placeholder:text-[#E9BCB9]/30 border-b border-transparent focus:border-[#ED9E59]/50 transition pb-2"
       />
       {error && (
         <p id={`${id}-error`} role="alert" className="text-red-400 text-xs mt-2">
