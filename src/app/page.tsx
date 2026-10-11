@@ -94,16 +94,14 @@ export default function Home() {
       setTimeout(passGate, 900);
     } else {
       setSlotStatus('error');
-      setAttempts((prev) => {
-        const next = prev + 1;
-        if (next >= MAX_ATTEMPTS) {
-          const code = makeCode();
-          setAccessCode(code);
-          sessionStorage.setItem(CODE_KEY, code);
-          return 0;
-        }
-        return next;
-      });
+      if (attempts + 1 >= MAX_ATTEMPTS) {
+        const code = makeCode();
+        setAccessCode(code);
+        sessionStorage.setItem(CODE_KEY, code);
+        setAttempts(0);
+      } else {
+        setAttempts(attempts + 1);
+      }
       setTimeout(() => setSlotStatus('idle'), 700);
     }
   };
