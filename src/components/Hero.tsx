@@ -11,7 +11,7 @@ import {
 import { useSiteContent } from '@/lib/use-content';
 import MaskedHeading from '@/components/MaskedHeading';
 
-const HERO_VIDEO_URL = 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+const HERO_VIDEO_URL = '/hero-video.mp4';
 
 export default function Hero({ active = true }: { active?: boolean }) {
   const content = useSiteContent();
