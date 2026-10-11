@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GsapProvider } from "@/components/GsapProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({
           ${geistSans.variable}
           ${geistMono.variable}
           antialiased
-          bg-black
-          text-white
+          bg-[#1B1931]
+          text-[#E9BCB9]
         `}
       >
-        {children}
+        <GsapProvider>
+          {children}
+        </GsapProvider>
       </body>
     </html>
   );
