@@ -53,6 +53,13 @@ export default function Navbar() {
             activeTextColor="#1B1931"
             size="md"
             radius={999}
+            inset={3}
+            equalSlots
+            stretch={100}
+            squash={3}
+            speed={1}
+            glide={75}
+            draggable
             aria-label="Primary navigation"
             className="border border-white/10 shadow-xl backdrop-blur-md"
           />
