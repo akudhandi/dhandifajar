@@ -13,6 +13,17 @@ import {
   SiTailwindcss,
   SiPostman,
   SiGradle,
+  SiSupabase,
+  SiDocker,
+  SiNgrok,
+  SiLinux,
+  SiOllama,
+  SiPython,
+  SiOpencv,
+  SiRedis,
+  SiResend,
+  SiVercel,
+  SiUbuntu,
 } from 'react-icons/si';
 
 export const techLogos = [
@@ -30,4 +41,15 @@ export const techLogos = [
   { node: <SiDart />, title: 'Dart', href: 'https://dart.dev' },
   { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
   { node: <SiPostman />, title: 'RESTful API', href: 'https://restfulapi.net' },
+  { node: <SiSupabase />, title: 'Supabase', href: 'https://supabase.com' },
+  { node: <SiDocker />, title: 'Docker', href: 'https://www.docker.com' },
+  { node: <SiNgrok />, title: 'ngrok', href: 'https://ngrok.com' },
+  { node: <SiLinux />, title: 'Linux', href: 'https://www.linux.org' },
+  { node: <SiOllama />, title: 'Ollama', href: 'https://ollama.com' },
+  { node: <SiPython />, title: 'Python', href: 'https://www.python.org' },
+  { node: <SiOpencv />, title: 'OpenCV', href: 'https://opencv.org' },
+  { node: <SiRedis />, title: 'Redis', href: 'https://redis.io' },
+  { node: <SiResend />, title: 'Resend', href: 'https://resend.com' },
+  { node: <SiVercel />, title: 'Vercel', href: 'https://vercel.com' },
+  { node: <SiUbuntu />, title: 'Ubuntu', href: 'https://ubuntu.com' },
 ];

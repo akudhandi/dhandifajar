@@ -8,7 +8,7 @@
 }
 
 .masked-heading__measure {
-  color: transparent;
+  color: currentColor;
 }
 
 .masked-heading__word {
@@ -51,6 +51,7 @@
   inset: 0;
   display: block;
   will-change: transform, filter;
+  background: linear-gradient(135deg, #ed9e59 0%, #a34054 60%, #44174e 100%);
 }
 
 .masked-heading__source {
