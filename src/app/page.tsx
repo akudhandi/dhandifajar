@@ -35,7 +35,13 @@ export default function Home() {
     if (typeof window === 'undefined') return true;
     return sessionStorage.getItem(GATE_KEY) !== 'passed';
   });
-  const [accessCode, setAccessCode] = useState('');
+  const [accessCode, setAccessCode] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    if (sessionStorage.getItem(GATE_KEY) === 'passed') return '';
+    const code = makeCode();
+    sessionStorage.setItem(CODE_KEY, code);
+    return code;
+  });
   const [attempts, setAttempts] = useState(0);
   const [slotStatus, setSlotStatus] = useState<'idle' | 'error' | 'success'>('idle');
 
@@ -76,14 +82,6 @@ export default function Home() {
       document.body.style.overflow = showGate ? "hidden" : "";
     }
   }, [isLoading, showGate]);
-
-  useEffect(() => {
-    if (!isLoading && showGate && !accessCode) {
-      const code = makeCode();
-      setAccessCode(code);
-      sessionStorage.setItem(CODE_KEY, code);
-    }
-  }, [isLoading, showGate, accessCode]);
 
   const passGate = () => {
     sessionStorage.setItem(GATE_KEY, 'passed');
