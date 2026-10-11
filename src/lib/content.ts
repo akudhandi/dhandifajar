@@ -45,6 +45,18 @@ export async function getSiteContent(): Promise<SiteContent> {
       return fallbackContent;
     }
 
+    const dbTech = techRes.data ?? [];
+    const seen = new Set(dbTech.map((t) => t.title.toLowerCase()));
+    const missing = fallbackContent.techStack.filter(
+      (t) => !seen.has(t.title.toLowerCase())
+    );
+    const techStack =
+      missing.length > 0
+        ? [...dbTech, ...missing].sort(
+            (a, b) => a.sort_order - b.sort_order
+          )
+        : dbTech;
+
     return {
       profile: profileRes.data ?? fallbackContent.profile,
       projects:
@@ -52,7 +64,7 @@ export async function getSiteContent(): Promise<SiteContent> {
           ? projectsRes.data
           : fallbackContent.projects,
       experiences: expRes.data ?? fallbackContent.experiences,
-      techStack: techRes.data ?? fallbackContent.techStack,
+      techStack: techStack.length > 0 ? techStack : fallbackContent.techStack,
       certificates: certRes.data ?? [],
       source: "database",
     };

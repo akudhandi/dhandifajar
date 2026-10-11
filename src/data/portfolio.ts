@@ -240,6 +240,17 @@ export const fallbackTechStack: TechItem[] = [
   { id: "fallback-dart", title: "Dart", icon_key: "SiDart", href: "https://dart.dev", color: "#0175C2", visible: true, sort_order: 12 },
   { id: "fallback-tailwind", title: "Tailwind CSS", icon_key: "SiTailwindcss", href: "https://tailwindcss.com", color: "#38BDF8", visible: true, sort_order: 13 },
   { id: "fallback-postman", title: "RESTful API", icon_key: "SiPostman", href: "https://www.postman.com", color: "#FF6C37", visible: true, sort_order: 14 },
+  { id: "fallback-supabase", title: "Supabase", icon_key: "SiSupabase", href: "https://supabase.com", color: "#3ECF8E", visible: true, sort_order: 15 },
+  { id: "fallback-docker", title: "Docker", icon_key: "SiDocker", href: "https://www.docker.com", color: "#2496ED", visible: true, sort_order: 16 },
+  { id: "fallback-ngrok", title: "ngrok", icon_key: "SiNgrok", href: "https://ngrok.com", color: "#FFFFFF", visible: true, sort_order: 17 },
+  { id: "fallback-linux", title: "Linux", icon_key: "SiLinux", href: "https://www.linux.org", color: "#FCC624", visible: true, sort_order: 18 },
+  { id: "fallback-ollama", title: "Ollama", icon_key: "SiOllama", href: "https://ollama.com", color: "#FFFFFF", visible: true, sort_order: 19 },
+  { id: "fallback-python", title: "Python", icon_key: "SiPython", href: "https://www.python.org", color: "#3776AB", visible: true, sort_order: 20 },
+  { id: "fallback-opencv", title: "OpenCV", icon_key: "SiOpencv", href: "https://opencv.org", color: "#5C3EE8", visible: true, sort_order: 21 },
+  { id: "fallback-redis", title: "Redis", icon_key: "SiRedis", href: "https://redis.io", color: "#FF4438", visible: true, sort_order: 22 },
+  { id: "fallback-resend", title: "Resend", icon_key: "SiResend", href: "https://resend.com", color: "#FFFFFF", visible: true, sort_order: 23 },
+  { id: "fallback-vercel", title: "Vercel", icon_key: "SiVercel", href: "https://vercel.com", color: "#FFFFFF", visible: true, sort_order: 24 },
+  { id: "fallback-ubuntu", title: "Ubuntu", icon_key: "SiUbuntu", href: "https://ubuntu.com", color: "#E95420", visible: true, sort_order: 25 },
 ];
 
 export const fallbackCertificates: Certificate[] = [];

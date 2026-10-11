@@ -21,6 +21,14 @@ import {
   SiFigma,
   SiDocker,
   SiSupabase,
+  SiLinux,
+  SiOpencv,
+  SiRedis,
+  SiResend,
+  SiVercel,
+  SiUbuntu,
+  SiNgrok,
+  SiOllama,
 } from "react-icons/si";
 
 const map: Record<string, React.ReactNode> = {
@@ -44,6 +52,14 @@ const map: Record<string, React.ReactNode> = {
   SiFigma: <SiFigma />,
   SiDocker: <SiDocker />,
   SiSupabase: <SiSupabase />,
+  SiLinux: <SiLinux />,
+  SiOpencv: <SiOpencv />,
+  SiRedis: <SiRedis />,
+  SiResend: <SiResend />,
+  SiVercel: <SiVercel />,
+  SiUbuntu: <SiUbuntu />,
+  SiNgrok: <SiNgrok />,
+  SiOllama: <SiOllama />,
 };
 
 export function TechIcon({ iconKey, color }: { iconKey: string; color: string }) {

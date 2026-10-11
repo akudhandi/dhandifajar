@@ -6,8 +6,7 @@
   width: 100%;
   --logoloop-gap: 56px;
   --logoloop-logoHeight: 56px;
-  /* KUNCI: Ubah warna fade agar sama dengan background website Anda */
-  --logoloop-fadeColorAuto: #141516; 
+  --logoloop-fadeColorAuto: #1B1931;
   color: white;
 }
 

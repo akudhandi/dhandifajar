@@ -1,132 +1,139 @@
 'use client';
 import { motion } from 'framer-motion';
-// Hapus import icon navbar lama yang tidak terpakai
 import {
-  FaGithub,
-  FaLinkedinIn,
-  FaDiscord,
-  FaInstagram
-} from 'react-icons/fa6';
-import Dock from '@/components/Dock/Dock';
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  ChevronDown,
+  ArrowUpRight,
+} from 'lucide-react';
 import { useSiteContent } from '@/lib/use-content';
+import MaskedHeading from '@/components/MaskedHeading';
 
-export default function Hero() {
+const HERO_VIDEO_URL = '/hero-video.mp4';
+
+export default function Hero({ active = true }: { active?: boolean }) {
   const content = useSiteContent();
-  const dockItems = [
-    {
-      id: 'discord',
-      icon: <FaDiscord size={22} />,
-      href: content.profile.socials.discord,
-    },
-    {
-      id: 'linkedin',
-      icon: <FaLinkedinIn size={22} />,
-      href: content.profile.socials.linkedin,
-    },
-    {
-      id: 'github',
-      icon: <FaGithub size={22} />,
-      href: content.profile.socials.github,
-    },
-    {
-      id: 'instagram',
-      icon: <FaInstagram size={22} />,
-      href: content.profile.socials.instagram,
-    },
+
+  const fadeUp = (delay: number) => ({
+    initial: { opacity: 0, y: 24 },
+    animate: active ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
+    transition: { duration: 0.7, delay, ease: 'easeOut' as const },
+  });
+
+  const socials = [
+    { id: 'github', icon: <Github size={18} />, href: content.profile.socials.github, label: 'GitHub' },
+    { id: 'linkedin', icon: <Linkedin size={18} />, href: content.profile.socials.linkedin, label: 'LinkedIn' },
+    { id: 'email', icon: <Mail size={18} />, href: `mailto:${content.profile.email}`, label: 'Email' },
+    { id: 'whatsapp', icon: <MessageCircle size={18} />, href: content.profile.whatsapp, label: 'WhatsApp' },
   ];
 
   return (
-    <section className="relative flex min-h-[100svh] w-full flex-col items-center justify-center bg-[#141516] overflow-hidden text-white px-4 pt-28 pb-14">
-      
-      {/* DULU ADA NAVBAR DI SINI. 
-          SUDAH DIHAPUS AGAR TIDAK DOBEL DENGAN NAVBAR BARU DI PAGE.TSX 
-      */}
+    <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-[#1B1931] px-4 pb-20 pt-28 text-[#E9BCB9]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 left-1/2 h-[420px] w-[680px] -translate-x-1/2 rounded-full bg-[#A34054]/10 blur-[140px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 left-1/4 h-[300px] w-[420px] rounded-full bg-[#ED9E59]/10 blur-[120px]"
+      />
 
-      <div className="relative z-10 flex flex-col items-center text-center">
-        
-        {/* Avatar (in-flow, tidak lagi menabrak navbar) */}
-        <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mb-7 flex justify-center"
-        >
-            <div className="flex items-center gap-2">
-                <div className="h-12 w-12 rounded-full bg-gray-600 border-2 border-white overflow-hidden">
-                    {/* GANTI SRC INI DENGAN FOTO KAMU */}
-                    <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Avatar" className="h-full w-full object-cover" />
-                </div>
-                <div className="rounded-full bg-neutral-800 px-3 py-1 text-xs border border-white/10">Hello, I'm Dev</div>
-            </div>
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+        <motion.div {...fadeUp(0.1)}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#662249] bg-[#44174E]/40 px-4 py-2 text-xs font-mono uppercase tracking-widest text-[#ED9E59]">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#ED9E59]" />
+            {content.profile.open_to_work ? 'Available for Work' : `Hello, I'm`}
+          </span>
         </motion.div>
 
-        {/* --- MAIN TYPOGRAPHY --- */}
-        <div className="flex flex-col items-center leading-none tracking-tighter font-bold uppercase">
-            
-            {/* Baris 1: DIGITAL */}
-            <h1 className="text-[12vw] md:text-[clamp(2.75rem,7vw,4.5rem)] text-purple-400 relative">
-                DIGITAL
-                {/* Badge Pink Kecil */}
-                <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-12 bg-pink-500 text-white text-xs md:text-sm px-2 py-1 rounded-md tracking-normal normal-case hidden md:block">
-                    Product
-                </span>
-                 <p className="absolute right-[-150px] top-10 text-xs text-gray-400 tracking-normal normal-case w-32 text-left hidden lg:block">
-                    // Based in <br/> Indonesia
-                </p>
-            </h1>
+        <motion.div {...fadeUp(0.2)} className="mt-8 w-full">
+          <MaskedHeading
+            key={active ? 'hero-on' : 'hero-off'}
+            tag="h1"
+            text={content.profile.full_name}
+            mediaType="video"
+            src={HERO_VIDEO_URL}
+            trigger="mount"
+            reveal="rise"
+            duration={1.2}
+            stagger={0.12}
+            align="center"
+            weight={800}
+            tracking={-0.02}
+            lineHeight={1.08}
+            textScale={0.085}
+            drift={16}
+            parallax={22}
+            brightness={1.05}
+            saturation={1.25}
+          />
+        </motion.div>
 
-            {/* Baris 2: EXPERIENCE */}
-            <h1 className="text-[10vw] md:text-[clamp(2.5rem,6.5vw,4rem)] text-[#fcd34d]">
-                EXPERIENCE
-            </h1>
+        <motion.p
+          {...fadeUp(0.3)}
+          className="mt-6 text-lg font-medium tracking-wide text-[#ED9E59] md:text-2xl"
+        >
+          Full Stack Developer &amp; Software Engineer
+        </motion.p>
 
-            {/* Baris 3: DESIGNER */}
-            <div className="relative flex items-center gap-4">
-                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-white">
-                    DESIGNER
-                </h1>
-                {/* Tombol/Badge "Let's Connect" */}
-                <div className="hidden md:flex absolute -right-40 top-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-white/20 bg-neutral-900 px-4 py-2 text-sm font-normal tracking-normal normal-case">
-                    <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                    Let's Connect
-                </div>
-            </div>
+        <motion.p
+          {...fadeUp(0.4)}
+          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#E9BCB9]/70 md:text-lg"
+        >
+          I build efficient web &amp; mobile experiences where aesthetics meets
+          functionality — from system design to shipped product.
+        </motion.p>
 
-            {/* Baris 4: & DEVELOPER */}
-            <div className="relative">
-                <h1 className="text-[11vw] md:text-[clamp(2.75rem,6.75vw,4.25rem)] text-cyan-400">
-                    & DEVELOPER.
-                </h1>
-                {/* Cursor Floating */}
-                 <motion.div 
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                    className="absolute -bottom-4 -left-4 md:-left-10 z-20"
-                >
-                    <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded-md rounded-tl-none relative shadow-lg">
-                        Dev
-                         <svg className="absolute -top-3 -left-0 w-4 h-4 text-blue-600 fill-current" viewBox="0 0 24 24" style={{ transform: 'rotate(0deg)' }}>
-                            <path d="M5.5 3.21l11.06 14.77a.8.8 0 01-1.28 1l-3.3-4.5-2.7 7.2a.8.8 0 01-1.5-.6l2.7-7.2-4.5 1.1a.8.8 0 01-1-.77L4.5 3.5a.8.8 0 011-.29z" />
-                        </svg>
-                    </div>
-                </motion.div>
-            </div>
+        <motion.div {...fadeUp(0.5)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#projects"
+            className="inline-flex items-center gap-2 rounded-full bg-[#ED9E59] px-7 py-3.5 text-sm font-semibold text-[#1B1931] transition hover:bg-[#ED9E59]/90"
+          >
+            View Work
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a
+            href="/contactme"
+            className="inline-flex items-center gap-2 rounded-full border border-[#662249] px-7 py-3.5 text-sm font-medium text-[#E9BCB9] transition hover:border-[#ED9E59]/40 hover:bg-[#44174E]/40 hover:text-[#ED9E59]"
+          >
+            Let&apos;s Talk
+          </a>
+        </motion.div>
 
-        </div>
-
-        {/* Subtitle */}
-        <p className="mt-6 max-w-lg text-center text-neutral-400 text-sm md:text-lg text-balance px-2">
-            I create a digital experience that borders on <br className="hidden md:block"/>
-            <span className="text-purple-400">efficiency</span>, <span className="text-yellow-400">aesthetics</span> and <span className="text-cyan-400">functionality</span>.
-        </p>
-
+        <motion.div {...fadeUp(0.6)} className="mt-8 flex items-center justify-center gap-3">
+          {socials.map((item) => (
+            <a
+              key={item.id}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.label}
+              className="rounded-full border border-[#662249] bg-[#44174E]/30 p-3 text-[#E9BCB9]/70 transition hover:border-[#ED9E59]/40 hover:bg-[#ED9E59]/10 hover:text-[#ED9E59]"
+            >
+              {item.icon}
+            </a>
+          ))}
+        </motion.div>
       </div>
 
-      {/* --- SOCIAL MEDIA DOCK (in-flow agar tidak menutupi subtitle) --- */}
-      <div className="mt-8 z-20">
-        <Dock items={dockItems} />
-      </div>
-
+      <motion.a
+        href="#about"
+        aria-label="Scroll to about section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: active ? 1 : 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute bottom-8 z-10"
+      >
+        <motion.span
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+          className="block"
+        >
+          <ChevronDown className="h-6 w-6 text-[#E9BCB9]/40" />
+        </motion.span>
+      </motion.a>
     </section>
   );
 }

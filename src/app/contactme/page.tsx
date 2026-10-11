@@ -15,7 +15,7 @@ export default function ContactMePage() {
     { name: "GitHub", link: content.profile.socials.github },
   ];
   return (
-    <main className="min-h-screen w-full bg-[#141516] text-white selection:bg-cyan-500">
+    <main className="min-h-screen w-full bg-[#1B1931] text-[#E9BCB9] selection:bg-[#ED9E59] selection:text-[#1B1931]">
       
       {/* NAVBAR */}
       <Navbar />
@@ -33,14 +33,14 @@ export default function ContactMePage() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <p className="mt-6 max-w-2xl text-neutral-400 leading-relaxed text-lg">
+              <p className="mt-6 max-w-2xl text-[#E9BCB9]/70 leading-relaxed text-lg">
                 Whether you&apos;re looking to collaborate on a project, need a solution
                 to a challenging problem, or just want to talk tech — feel free to reach out.
               </p>
             </Reveal>
 
             <Reveal delay={0.5}>
-              <div className="mt-14 border-t border-white/10 pt-10">
+              <div className="mt-14 border-t border-[#662249] pt-10">
                 <ContactForm />
               </div>
             </Reveal>
@@ -52,18 +52,18 @@ export default function ContactMePage() {
 
               {/* LOGO */}
               <Reveal delay={0.6}>
-                <div className="h-16 w-16 rounded-full bg-white flex items-center justify-center">
-                  <span className="text-black font-bold text-2xl">d</span>
+                <div className="h-16 w-16 rounded-full bg-[#ED9E59] flex items-center justify-center">
+                  <span className="text-[#1B1931] font-bold text-2xl">d</span>
                 </div>
               </Reveal>
 
               {/* EMAIL */}
               <Reveal delay={0.7}>
                 <div>
-                  <p className="text-xs text-neutral-500 mb-2 uppercase tracking-widest">Contact Details</p>
+                  <p className="text-xs text-[#E9BCB9]/50 mb-2 uppercase tracking-widest">Contact Details</p>
                   <a
                     href={`mailto:${content.profile.email}`}
-                    className="text-sm hover:text-cyan-400 transition-colors"
+                    className="text-sm hover:text-[#ED9E59] transition-colors"
                   >
                     {content.profile.email}
                   </a>
@@ -73,7 +73,7 @@ export default function ContactMePage() {
               {/* SOCIALS */}
               <Reveal delay={0.8}>
                 <div>
-                  <p className="text-xs text-neutral-500 mb-4 uppercase tracking-widest">Socials</p>
+                  <p className="text-xs text-[#E9BCB9]/50 mb-4 uppercase tracking-widest">Socials</p>
                   <ul className="space-y-4">
                     {socials.map((item) => (
                       <li key={item.name}>
@@ -83,16 +83,16 @@ export default function ContactMePage() {
                           rel="noopener noreferrer"
                           className="
                             group inline-flex items-center gap-2
-                            text-sm text-neutral-400
+                            text-sm text-[#E9BCB9]/70
                             transition-all duration-300
-                            hover:text-white hover:translate-x-2
+                            hover:text-[#ED9E59] hover:translate-x-2
                           "
                         >
                           <span
                             className="
-                              h-1.5 w-1.5 rounded-full bg-neutral-600
+                              h-1.5 w-1.5 rounded-full bg-[#E9BCB9]/40
                               transition-all duration-300
-                              group-hover:bg-cyan-400 group-hover:scale-125
+                              group-hover:bg-[#ED9E59] group-hover:scale-125
                             "
                           />
                           {item.name}

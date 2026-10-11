@@ -15,7 +15,7 @@ export default function AboutPage() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-[#141516] text-white selection:bg-cyan-500">
+    <main className="min-h-screen w-full bg-[#1B1931] text-[#E9BCB9] selection:bg-[#ED9E59] selection:text-[#1B1931]">
       <Navbar />
 
       <section className="px-6 pt-40 pb-32">
@@ -30,13 +30,13 @@ export default function AboutPage() {
                 <div className="max-w-xl">
                   <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.1]">
                     I&apos;m Dhandi — <br />
-                    <span className="text-neutral-500">Crafting Digital Solutions.</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ED9E59] to-[#A34054]">Crafting Digital Solutions.</span>
                   </h1>
                 </div>
               </Reveal>
 
               <Reveal delay={0.4}>
-                <p className="text-xl md:text-2xl text-neutral-400 leading-relaxed font-light max-w-lg">
+                <p className="text-xl md:text-2xl text-[#E9BCB9]/70 leading-relaxed font-light max-w-lg">
                   As a Software Engineer, I specialize in building high-performance 
                   applications that bridge the gap between complex backend logic 
                   and intuitive frontend experiences. My approach focuses on 
@@ -49,7 +49,7 @@ export default function AboutPage() {
                   href={content.profile.cv_url ?? "https://drive.google.com/file/d/1-AnW68Eg0Mj6vMHZMbFWkodPwojhljiX/view?usp=sharing"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-8 py-4 border border-white/10 rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300 group"
+                  className="inline-flex items-center gap-3 px-8 py-4 border border-[#662249] rounded-full text-sm font-medium text-[#E9BCB9] hover:bg-[#ED9E59] hover:text-[#1B1931] hover:border-[#ED9E59] transition-all duration-300 group"
                 >
                   <Download size={18} className="group-hover:-translate-y-1 transition-transform" />
                   Download My CV
@@ -68,8 +68,8 @@ export default function AboutPage() {
                   handle="akudhandi"
                   status={content.profile.open_to_work ? "Available for Work" : "Currently Busy"}
                   contactText="Contact Me"
-                  behindGlowColor="rgba(34, 211, 238, 0.4)" 
-                  innerGradient="linear-gradient(145deg, rgba(15, 16, 17, 0.9) 0%, rgba(0, 0, 0, 1) 100%)"
+                  behindGlowColor="rgba(237, 158, 89, 0.4)"
+                  innerGradient="linear-gradient(145deg, rgba(68, 23, 78, 0.9) 0%, rgba(27, 25, 49, 1) 100%)"
                   onContactClick={handleContactClick}
                 />
               </Reveal>
@@ -79,19 +79,19 @@ export default function AboutPage() {
           {/* I CAN HELP YOU WITH SECTION (DESKRIPSI LENGKAP) */}
           <div className="mt-40">
             <Reveal>
-              <h2 className="text-center text-purple-400 font-medium mb-16 text-lg">
+              <h2 className="text-center text-[#ED9E59] font-medium mb-16 text-lg">
                 I can help you with
               </h2>
             </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-[#662249]/60 pt-12">
               
               {/* 01. FRONTEND */}
               <Reveal delay={0.2}>
                 <div className="space-y-6">
-                  <span className="text-sm text-neutral-600 font-mono">01</span>
-                  <h3 className="text-2xl font-medium">Frontend & Design</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
+                  <span className="text-sm text-[#E9BCB9]/40 font-mono">01</span>
+                  <h3 className="text-2xl font-medium text-[#E9BCB9]">Frontend & Design</h3>
+                  <p className="text-sm text-[#E9BCB9]/70 leading-relaxed">
                     I create responsive, interactive, and visually stunning interfaces 
                     using Next.js and Tailwind CSS. My goal is to ensure every interaction 
                     feels seamless and purposeful.
@@ -102,9 +102,9 @@ export default function AboutPage() {
               {/* 02. BACKEND */}
               <Reveal delay={0.4}>
                 <div className="space-y-6">
-                  <span className="text-sm text-neutral-600 font-mono">02</span>
-                  <h3 className="text-2xl font-medium">Backend Architecture</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
+                  <span className="text-sm text-[#E9BCB9]/40 font-mono">02</span>
+                  <h3 className="text-2xl font-medium text-[#E9BCB9]">Backend Architecture</h3>
+                  <p className="text-sm text-[#E9BCB9]/70 leading-relaxed">
                     With expertise in Laravel and MySQL, I build robust server-side 
                     applications and APIs that are secure, scalable, and easy to 
                     maintain for long-term growth.
@@ -115,9 +115,9 @@ export default function AboutPage() {
               {/* 03. MOBILE & AI */}
               <Reveal delay={0.6}>
                 <div className="space-y-6">
-                  <span className="text-sm text-neutral-600 font-mono">03</span>
-                  <h3 className="text-2xl font-medium">AI & Mobile Integration</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">
+                  <span className="text-sm text-[#E9BCB9]/40 font-mono">03</span>
+                  <h3 className="text-2xl font-medium text-[#E9BCB9]">AI & Mobile Integration</h3>
+                  <p className="text-sm text-[#E9BCB9]/70 leading-relaxed">
                     From implementing AI Chatbots with Google Gemini to building 
                     cross-platform mobile apps with Flutter, I provide comprehensive 
                     tech solutions for modern businesses.
@@ -132,7 +132,7 @@ export default function AboutPage() {
             <div className="mt-40 flex justify-center">
                <Link 
                   href="/contactme"
-                  className="group flex items-center gap-4 bg-white text-black px-8 py-4 rounded-full font-medium transition-all hover:bg-cyan-400"
+                   className="group flex items-center gap-4 bg-[#ED9E59] text-[#1B1931] px-8 py-4 rounded-full font-medium transition-all hover:bg-[#E9BCB9]"
                 >
                   Contact Me
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />

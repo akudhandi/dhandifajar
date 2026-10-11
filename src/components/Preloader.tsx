@@ -38,7 +38,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       variants={slideUp}
       initial="initial"
       exit="exit"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#141516] text-white"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#1B1931] text-[#E9BCB9]"
     >
         {/* Teks Sapaan */}
         <div className="flex items-center justify-center">
