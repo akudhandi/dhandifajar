@@ -52,6 +52,7 @@ export default function Home() {
     github: p.github_url,
     document: p.doc_url,
     doi: p.doi_url,
+    cover: p.cover_url ?? null,
   }));
   const experiences = content.experiences.map((e) => ({
     title: e.title,
