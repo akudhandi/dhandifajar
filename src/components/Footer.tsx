@@ -1,10 +1,10 @@
 import Link from 'next/link';
 // Import icons dari lucide-react (Pasikan sudah install: npm install lucide-react)
-import { Linkedin, Github, Instagram, MessageSquare, Mail, ArrowRight } from 'lucide-react';
+import { Linkedin, Github, Instagram, MessageSquare, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#141516] border-t border-white/10 px-6 py-16 text-white">
+    <footer className="bg-[#1B1931] border-t border-[#662249] px-6 py-16 text-[#E9BCB9]">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_0.8fr_1.5fr_1.2fr] gap-12 items-start">
           
