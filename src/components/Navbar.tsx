@@ -1,11 +1,22 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Home, Briefcase, User, Mail } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import RubberSegment from '@/components/reactbits/RubberSegment';
+
+const ROUTES = ['/', '/projects', '/about'];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const matched = ROUTES.includes(pathname) ? pathname : null;
+  const [active, setActive] = useState(matched ?? '/');
+
+  useEffect(() => {
+    if (matched) setActive(matched);
+  }, [matched]);
 
   return (
     <header className="fixed top-6 inset-x-0 z-50">
@@ -25,37 +36,29 @@ export default function Navbar() {
 
         {/* CENTER — NAV */}
         <nav
-          className="hidden md:flex items-center gap-1
-                     bg-black/60 backdrop-blur-md border border-white/10
-                     rounded-full px-2 py-1.5 shadow-xl
-                     absolute left-1/2 -translate-x-1/2"
+          className="hidden md:block absolute left-1/2 -translate-x-1/2"
+          aria-label="Primary"
         >
-          {/* HOME */}
-          <Link 
-            href="/" 
-            className={`nav-btn ${pathname === '/' ? 'bg-white/10 text-cyan-400' : ''}`}
-          >
-            <Home size={16} />
-            Home
-          </Link>
-
-          {/* PROJECTS — Ke page /projects */}
-          <Link 
-            href="/projects" 
-            className={`nav-btn ${pathname === '/projects' ? 'bg-white/10 text-cyan-400' : ''}`}
-          >
-            <Briefcase size={16} />
-            Projects
-          </Link>
-
-          {/* ABOUT — Ke page /about */}
-          <Link 
-            href="/about" 
-            className={`nav-btn ${pathname === '/about' ? 'bg-white/10 text-cyan-400' : ''}`}
-          >
-            <User size={16} />
-            About
-          </Link>
+          <RubberSegment
+            items={[
+              { value: '/', label: 'Home', icon: <Home size={16} /> },
+              { value: '/projects', label: 'Projects', icon: <Briefcase size={16} /> },
+              { value: '/about', label: 'About', icon: <User size={16} /> },
+            ]}
+            value={active}
+            onChange={(v) => {
+              setActive(v);
+              if (v !== pathname) router.push(v);
+            }}
+            trackColor="rgba(0,0,0,0.6)"
+            thumbColor="#ED9E59"
+            textColor="#E9BCB9"
+            activeTextColor="#1B1931"
+            size="md"
+            radius={999}
+            aria-label="Primary navigation"
+            className="border border-white/10 shadow-xl backdrop-blur-md"
+          />
         </nav>
 
         {/* RIGHT — CONTACT PAGE */}
