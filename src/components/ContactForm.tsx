@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import HoldButton from "@/components/reactbits/HoldButton";
 
 type Status = "idle" | "sending" | "success" | "error";
 
 const initial = { name: "", email: "", organization: "", needs: "", message: "" };
 
 export default function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState(initial);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -99,7 +101,7 @@ export default function ContactForm() {
   const sending = status === "sending";
 
   return (
-    <form onSubmit={onSubmit} noValidate className="divide-y divide-[#662249]/60" aria-describedby={formError ? "contact-error" : undefined}>
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="divide-y divide-[#662249]/60" aria-describedby={formError ? "contact-error" : undefined}>
       <Field
         index="01"
         id="contact-name"
@@ -183,19 +185,21 @@ export default function ContactForm() {
 
       {/* SUBMIT */}
       <div className="pt-10 flex justify-end">
-        <button
-          type="submit"
+        <HoldButton
+          size="lg"
+          radius={999}
+          holdTime={1200}
+          backgroundColor="#44174E"
+          fillColor="#ED9E59"
+          textColor="#E9BCB9"
+          fillTextColor="#1B1931"
           disabled={sending}
-          className="
-            px-10 py-3 rounded-full text-sm font-medium
-            bg-[#ED9E59] text-[#1B1931]
-            transition-all duration-300
-            hover:scale-105 hover:shadow-[0_0_25px_rgba(237,158,89,0.6)]
-            active:scale-95 disabled:opacity-60 disabled:hover:scale-100 disabled:cursor-wait
-          "
+          doneLabel={sending ? "Sending..." : "Sent!"}
+          onHold={() => formRef.current?.requestSubmit()}
+          onTap={() => formRef.current?.requestSubmit()}
         >
-          {sending ? "Sending..." : "Send It"}
-        </button>
+          {sending ? "Sending..." : "Hold to Send It"}
+        </HoldButton>
       </div>
     </form>
   );
