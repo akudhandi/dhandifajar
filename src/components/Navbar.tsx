@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Home, Briefcase, User, Mail } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -12,11 +12,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const matched = ROUTES.includes(pathname) ? pathname : null;
-  const [active, setActive] = useState(matched ?? '/');
-
-  useEffect(() => {
-    if (matched) setActive(matched);
-  }, [matched]);
+  const [active, setActive] = useState('/');
+  const value = matched ?? active;
 
   return (
     <header className="fixed top-6 inset-x-0 z-50">
@@ -45,7 +42,7 @@ export default function Navbar() {
               { value: '/projects', label: 'Projects', icon: <Briefcase size={16} /> },
               { value: '/about', label: 'About', icon: <User size={16} /> },
             ]}
-            value={active}
+            value={value}
             onChange={(v) => {
               setActive(v);
               if (v !== pathname) router.push(v);

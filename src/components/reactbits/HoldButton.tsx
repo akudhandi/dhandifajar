@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react-hooks/purity -- vendored ReactBits: performance.now only runs in event handlers/rAF, never during render */
 
 import React, { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 

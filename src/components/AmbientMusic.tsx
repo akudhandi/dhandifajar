@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Pause, Play } from 'lucide-react';
 import SloshGauge from '@/components/reactbits/SloshGauge';
 
@@ -11,19 +11,28 @@ function gainFromGauge(v: number) {
   return Math.pow(v / 100, 1.5) * 0.4;
 }
 
+function readSavedVolume() {
+  if (typeof window === 'undefined') return 40;
+  try {
+    const saved = Number(window.localStorage.getItem(STORAGE_KEY));
+    return Number.isFinite(saved) ? Math.min(100, Math.max(0, saved)) : 40;
+  } catch {
+    return 40;
+  }
+}
+
 export default function AmbientMusic() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [playing, setPlaying] = useState(false);
-  const [volume, setVolume] = useState(40);
+  const [volume, setVolume] = useState(readSavedVolume);
   const ctxRef = useRef<AudioContext | null>(null);
   const masterRef = useRef<GainNode | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-    try {
-      const saved = Number(window.localStorage.getItem(STORAGE_KEY));
-      if (Number.isFinite(saved)) setVolume(Math.min(100, Math.max(0, saved)));
-    } catch {}
     return () => {
       ctxRef.current?.close().catch(() => {});
       ctxRef.current = null;
